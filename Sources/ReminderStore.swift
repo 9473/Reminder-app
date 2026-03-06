@@ -10,7 +10,7 @@ final class ReminderStore: ObservableObject {
 
     init() {
         let supportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let appDirectory = supportDirectory.appendingPathComponent("MotivateBar", isDirectory: true)
+        let appDirectory = supportDirectory.appendingPathComponent("Reminder", isDirectory: true)
         self.saveURL = appDirectory.appendingPathComponent("state.json")
 
         do {

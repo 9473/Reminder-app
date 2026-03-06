@@ -2,16 +2,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "MotivateBar",
+    name: "Reminder",
     platforms: [
         .macOS(.v13)
     ],
     products: [
-        .executable(name: "MotivateBar", targets: ["MotivateBar"])
+        .executable(name: "Reminder", targets: ["Reminder"])
     ],
     targets: [
         .executableTarget(
-            name: "MotivateBar",
+            name: "Reminder",
             path: "Sources"
         )
     ]

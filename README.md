@@ -1,6 +1,6 @@
 # Reminder-app
 
-一个原生 macOS 菜单栏小应用：
+一个原生 macOS 状态栏小应用，应用名是 `Reminder`：
 
 - 常驻状态栏
 - 顶部固定激励文段
@@ -8,6 +8,14 @@
 - `●` 表示已经做过
 - `○` 表示待办提醒
 - 数据自动保存在本地
+
+## GitHub Release 一键下载
+
+仓库发布新版本后，可以直接在 GitHub Releases 下载：
+
+- `Reminder-macOS.zip`
+
+下载后解压，把 `Reminder.app` 拖进 `Applications` 即可。
 
 ## 直接安装
 
@@ -26,13 +34,19 @@
 
 1. 编译 release 版本
 2. 打包成 `.app`
-3. 安装到 `/Applications/MotivateBar.app`
+3. 安装到 `/Applications/Reminder.app`
 4. 自动打开应用
 
 也可以用：
 
 ```bash
 make install
+```
+
+安装后的路径是：
+
+```bash
+/Applications/Reminder.app
 ```
 
 ## 开发运行
@@ -52,7 +66,7 @@ swift run
 打包完成后，生成物在：
 
 ```bash
-dist/MotivateBar.app
+dist/Reminder.app
 ```
 
 你可以把这个 `.app` 拖进 `Applications`，之后就不依赖这个源码目录继续使用。

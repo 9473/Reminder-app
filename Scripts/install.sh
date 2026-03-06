@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-APP_NAME="MotivateBar"
+APP_NAME="Reminder"
 APP_PATH="/Applications/$APP_NAME.app"
 
 "$ROOT_DIR/Scripts/package_app.sh"

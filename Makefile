@@ -1,4 +1,4 @@
-APP_NAME=MotivateBar
+APP_NAME=Reminder
 
 .PHONY: build package install run clean
 
