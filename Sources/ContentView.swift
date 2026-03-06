@@ -1,15 +1,20 @@
 import AppKit
 import SwiftUI
 
+private enum EditorFocusTarget: Hashable {
+    case pinnedMessage
+}
+
 struct ContentView: View {
     @EnvironmentObject private var store: ReminderStore
     @State private var draftMessage = ""
     @State private var showingAddSheet = false
+    @FocusState private var focusedField: EditorFocusTarget?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             HeaderSection()
-            PinnedMessageSection(draftMessage: $draftMessage)
+            PinnedMessageSection(draftMessage: $draftMessage, focusedField: $focusedField)
             ReminderListSection()
             FooterSection(showingAddSheet: $showingAddSheet)
         }
@@ -19,10 +24,20 @@ struct ContentView: View {
         .onAppear {
             draftMessage = store.state.pinnedMessage
         }
+        .onChange(of: showingAddSheet) { isPresented in
+            refreshEditingState(isAddSheetPresented: isPresented)
+        }
+        .onChange(of: focusedField) { field in
+            refreshEditingState(isAddSheetPresented: showingAddSheet, focusedField: field)
+        }
         .sheet(isPresented: $showingAddSheet) {
             AddReminderSheet(isPresented: $showingAddSheet)
                 .environmentObject(store)
         }
+    }
+
+    private func refreshEditingState(isAddSheetPresented: Bool, focusedField: EditorFocusTarget? = nil) {
+        store.setEditing(isAddSheetPresented || focusedField != nil)
     }
 }
 
@@ -41,6 +56,7 @@ private struct HeaderSection: View {
 private struct PinnedMessageSection: View {
     @EnvironmentObject private var store: ReminderStore
     @Binding var draftMessage: String
+    var focusedField: FocusState<EditorFocusTarget?>.Binding
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -49,6 +65,7 @@ private struct PinnedMessageSection: View {
 
             TextEditor(text: $draftMessage)
                 .font(AppFonts.body(size: 15))
+                .focused(focusedField, equals: .pinnedMessage)
                 .scrollContentBackground(.hidden)
                 .padding(8)
                 .frame(height: 92)

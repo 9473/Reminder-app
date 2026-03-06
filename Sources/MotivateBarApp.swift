@@ -78,6 +78,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
     private func handleEvent(_ event: NSEvent) {
         guard popover.isShown else { return }
+        guard !store.isEditing else { return }
         guard let popoverWindow = popover.contentViewController?.view.window else { return }
         let mouseLocation = NSEvent.mouseLocation
 

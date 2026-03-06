@@ -3,6 +3,7 @@ import Foundation
 @MainActor
 final class ReminderStore: ObservableObject {
     @Published var state: AppState
+    @Published private(set) var isEditing = false
 
     private let saveURL: URL
     private let encoder = JSONEncoder()
@@ -53,6 +54,10 @@ final class ReminderStore: ObservableObject {
         guard let index = state.items.firstIndex(of: item) else { return }
         state.items[index].kind = state.items[index].kind == .todo ? .done : .todo
         save()
+    }
+
+    func setEditing(_ editing: Bool) {
+        isEditing = editing
     }
 
     private func save() {
